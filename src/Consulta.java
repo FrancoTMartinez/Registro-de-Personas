@@ -8,7 +8,6 @@ public class Consulta {
 
         String entradaTeclado = "";
         Scanner entradaEscaner = new Scanner (System.in);
-        //Establecer conexion
         Connection con = null;
         String dni;
         String nombre;
@@ -17,44 +16,39 @@ public class Consulta {
         String telefono;
         String direccion;
         String email;
-        // Insertar Datos
+        // Guardar Datos
             try{
                 PreparedStatement ps;
                 ResultSet rs;
-
+                //Establecer conexion
                 con = conexion.obtener_con();
                 ps = con.prepareStatement("INSERT INTO personas(Dni, Nombre, Apellido, Edad, Telefono, Direccion, Email) VALUES (?,?,?,?,?,?,?)");
+
                 System.out.println("Ingrese el DNI");
                 entradaTeclado = entradaEscaner.nextLine ();
                 dni = entradaTeclado;
                 ps.setString(1,dni);
-                System.out.println("El Dni ingresado es: " + entradaTeclado + " " );
-                System.out.println("Ingrese Nombre");
+                System.out.println("El Dni ingresado es: " + entradaTeclado + " \n" + "Ingrese Nombre");
                 entradaTeclado = entradaEscaner.nextLine ();
                 nombre = entradaTeclado;
                 ps.setString(2, nombre);
-                System.out.println("El Nombre ingresado es: " + entradaTeclado + " ");
-                System.out.println("Ingrese Apellido");
+                System.out.println("El Nombre ingresado es: " + entradaTeclado + " \n" + "Ingrese Apellido");
                 entradaTeclado = entradaEscaner.nextLine ();
                 apellido = entradaTeclado;
                 ps.setString(3, apellido);
-                System.out.println("El Apellido ingresado es: " + entradaTeclado + " ");
-                System.out.println("Ingrese Edad");
+                System.out.println("El Apellido ingresado es: " + entradaTeclado + " \n" + "Ingrese Edad");
                 entradaTeclado = entradaEscaner.nextLine ();
                 edad = entradaTeclado;
                 ps.setString(4,edad);
-                System.out.println("La Edad ingresada es: " + entradaTeclado + " ");
-                System.out.println("Ingrese Telefono");
+                System.out.println("La Edad ingresada es: " + entradaTeclado + " \n" + "Ingrese Telefono");
                 entradaTeclado = entradaEscaner.nextLine ();
                 telefono = entradaTeclado;
                 ps.setString(5,telefono);
-                System.out.println("El Telefono ingresado es: " + entradaTeclado + " ");
-                System.out.println("Ingrese el Direccion");
+                System.out.println("El Telefono ingresado es: " + entradaTeclado + " \n" + "Ingrese Direccion");
                 entradaTeclado = entradaEscaner.nextLine ();
                 direccion = entradaTeclado;
                 ps.setString(6,direccion);
-                System.out.println("La direccion ingresada es: " + entradaTeclado + " ");
-                System.out.println("Ingrese Email");
+                System.out.println("La direccion ingresada es: " + entradaTeclado + " \n" + "Ingrese Email");
                 entradaTeclado = entradaEscaner.nextLine();
                 email = entradaTeclado;
                 ps.setString(7, email);
@@ -68,7 +62,7 @@ public class Consulta {
                 }
 
             }catch (Exception e){
-                System.out.println("Error: " + e);
+                System.err.println("Error: " + e);
             }
         return con;
     }
