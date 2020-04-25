@@ -1,7 +1,4 @@
 
-
-//import Consulta.consulta;
-
 import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
@@ -24,9 +21,12 @@ public class Main{
 
             do{
                 System.out.println("Elija la opcion que desee\n" +
-                     "0- Cerrar.\n" +
-                     "1- Agregar Datos.\n" +
-                     "2- Eliminar Datos.\n"); //en prepracion
+                        "0- Cerrar.\n" +
+                        "1- Agregar Datos.\n" +
+                        "2- Buscar Datos.\n" +
+                        "3- Modificar Datos.\n" +
+                        "4- Borrar Datos");
+
                 opciones = entradaEscaner.nextInt();
 
                     switch (opciones) {
@@ -38,12 +38,22 @@ public class Main{
                             break;
                         case 1:
                             System.out.println("Eligio Agregar datos.\n");
-                            Consulta consul = new Consulta();
-                            System.out.println(consul.guardar());
+                            Consulta agregar_personas = new Consulta();
+                            System.out.println(agregar_personas.guardar());
                             break;
                         case 2:
-                            System.out.println("Eligio Modificar datos.\n");
+                            System.out.println("Eligio Buscar Datos.\n");
+                            Consulta buscar_personas = new Consulta();
+                            System.out.println(buscar_personas.buscar());
                             break;
+                        case 3:
+                            System.out.println("Eligio Modificar Datos.\n");
+                            Consulta modificar_personas = new Consulta();
+                            System.out.println(modificar_personas.modificar());
+                            break;
+                        case 4: System.out.println("Eligio Borrar Datos");
+                                Consulta borrar_personas = new Consulta();
+                                System.out.println(borrar_personas.borrar());
                     }
                 } while (opciones != 0);
         return;

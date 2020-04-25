@@ -10,7 +10,7 @@ public class conexion {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registro_personas", "root", "");
             if(con != null){
-                System.out.println("Conexion Exitosa!");
+
             } else {
                 System.out.println("Conxeion Fallida");
             }
