@@ -1,7 +1,7 @@
-package Main.Java;
+package main.java;
 
-import Main.Conexion.Conexion;
-import Main.Consulta.Consulta;
+import java.Conexion;
+import java.Consulta;
 
 import java.sql.*;
 import java.util.Scanner;

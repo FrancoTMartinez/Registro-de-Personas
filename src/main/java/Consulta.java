@@ -1,6 +1,4 @@
-package Main.Consulta;
-
-import Main.Conexion.Conexion;
+package java;
 
 import java.sql.*;
 import java.util.Scanner;
