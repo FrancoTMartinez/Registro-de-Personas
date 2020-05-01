@@ -1,27 +1,35 @@
+package Main.Consulta;
+
+import Main.Conexion.Conexion;
+
 import java.sql.*;
 import java.util.Scanner;
 
 public class Consulta {
 
-    public static Connection guardar(){
+    private String dni;
+    private String nombre;
+    private String edad;
+    private String telefono;
+    private String direccion;
+    private String email;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    private Connection con = null;
+    private String entradaTeclado = "";
+    private Scanner entradaEscaner = new Scanner (System.in);
+    private static String INSERT = "INSERT INTO personas(Dni, Nombre, Edad, Telefono, ) VADireccion, EmailLUES (?,?,?,?,?,?)";
+    private static String SELECT = "SELECT * FROM personas WHERE dni = ?";
+    private static String UPDATE = "UPDATE personas SET dni=?, nombre=?, Edad=?, telefono=?, direccion=?, email=? WHERE dni=?";
+    private static String DELETE = "DELETE FROM personas WHERE dni=?";
 
-        String entradaTeclado = "";
-        Scanner entradaEscaner = new Scanner (System.in);
-        Connection con = null;
-        String dni;
-        String nombre;
-        String apellido;
-        String edad;
-        String telefono;
-        String direccion;
-        String email;
-        PreparedStatement ps;
-        ResultSet rs;
+
+    public Connection guardar(){
         // Guardar Datos
             try{
-                //Establecer conexion
-                con = conexion.obtener_con();
-                ps = con.prepareStatement("INSERT INTO personas(Dni, Nombre, Edad, Telefono, Direccion, Email) VALUES (?,?,?,?,?,?)");
+                //Establecer Main.Java.conexion
+                con = Conexion.obtenerCon();
+                ps = con.prepareStatement(INSERT);
 
                 System.out.println("Ingrese el DNI: ");
                 entradaTeclado = entradaEscaner.nextLine ();
@@ -59,22 +67,16 @@ public class Consulta {
                 }
 
             }catch (Exception e){
-                System.err.println("Error: " + e);
+                System.err.println("Error: " + e.getMessage());
             }
         return con;
     }
-    public static Connection buscar() {
+    public  Connection buscar() {
         //Buscar Personas
-        Connection con = null;
-        PreparedStatement ps;
-        ResultSet rs;
-        String entradaTeclado = "";
-        Scanner entradaEscaner = new Scanner(System.in);
-        String dni;
         try {
-            //Establecer conexion
-            con = conexion.obtener_con();
-            ps = con.prepareStatement("SELECT * FROM personas WHERE dni = ?");
+            //Establecer Main.Java.conexion
+            con = Conexion.obtenerCon();
+            ps = con.prepareStatement(SELECT);
             System.out.println("Ingrese el DNI de la persona que desea buscar.");
             entradaTeclado = entradaEscaner.nextLine();
             dni = entradaTeclado;
@@ -94,28 +96,16 @@ public class Consulta {
                 System.out.println("--------------------------------------------------------------------");
             }
         } catch (Exception e) {
-            System.out.println("Erro:" + e);
+            System.out.println("Error:" + e.getMessage());
         }
         return con;
     }
-    public static Connection modificar(){
-        Connection con = null;
-        PreparedStatement ps;
-        ResultSet rs;
-        String dni;
-        String nombre;
-        String apellido;
-        String edad;
-        String telefono;
-        String direccion;
-        String email;
-        String entradaTeclado = "";
-        Scanner entradaEscaner = new Scanner (System.in);
-
+    public Connection modificar(){
+        //Modificar Personas
         try {
-            //Establecer conexion
-            con = conexion.obtener_con();
-            ps = con.prepareStatement("UPDATE personas SET dni=?, nombre=?, Edad=?, telefono=?, direccion=?, email=? WHERE dni=?");
+            //Establecer Main.Java.conexion
+            con = Conexion.obtenerCon();
+            ps = con.prepareStatement(UPDATE);
 
             System.out.println("Ingrese el DNI: ");
             entradaTeclado = entradaEscaner.nextLine ();
@@ -161,18 +151,12 @@ public class Consulta {
         }
         return con;
     }
-    public static Connection borrar(){
-        Connection con = null;
-        PreparedStatement ps;
-        ResultSet rs;
-        String entradaTeclado = "";
-        Scanner entradaEscaner = new Scanner (System.in);
-        String dni;
-
+    public Connection borrar(){
+        //Borrar Personas
         try{
-            //Establecer conexion
-            con = conexion.obtener_con();
-            ps = con.prepareStatement("DELETE FROM personas WHERE dni=?");
+            //Establecer Main.Java.conexion
+            con = Conexion.obtenerCon();
+            ps = con.prepareStatement(DELETE);
 
             System.out.println("Ingrese el DNI de la persona que desea borrar su informacion: ");
             entradaTeclado = entradaEscaner.nextLine ();
@@ -188,7 +172,7 @@ public class Consulta {
                 System.out.println("Error al eliminar datos");
             }
         }catch (Exception e){
-            System.out.println("Error:" + e);
+            System.out.println("Error:" + e.getMessage());
             System.out.println("--------------------------------------------------------------------");
         }
 

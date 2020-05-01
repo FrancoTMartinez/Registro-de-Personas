@@ -1,12 +1,14 @@
+package Main.Conexion;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class conexion {
+public class Conexion {
     private static Connection con = null;
 
-    public static Connection obtener_con (){
+    public static Connection obtenerCon (){
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registro_personas", "root", "");
             if(con != null){
@@ -15,7 +17,7 @@ public class conexion {
                 System.out.println("Conxeion Fallida");
             }
         } catch (Exception e) {
-            System.out.println("ERROR: " + e);
+            System.out.println("ERROR: " + e.getMessage());
         }
         return con;
     }

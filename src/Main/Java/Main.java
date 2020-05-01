@@ -1,23 +1,21 @@
+package Main.Java;
 
-import org.w3c.dom.ls.LSOutput;
+import Main.Conexion.Conexion;
+import Main.Consulta.Consulta;
 
-import javax.swing.*;
 import java.sql.*;
-import java.util.Properties;
 import java.util.Scanner;
-
-import static jdk.internal.net.http.common.Utils.close;
 
 public class Main{
     public static void main(String[] args) throws SQLException {
         //Establecer Conexion con BD
-        conexion con = new conexion();
-           System.out.println(conexion.obtener_con());
+        Conexion con = new Conexion();
+           System.out.println(Conexion.obtenerCon());
 
         Scanner entradaEscaner = new Scanner (System.in);
         int opciones;
 
-        if (conexion.obtener_con() != null){
+        if (Conexion.obtenerCon() != null){
 
             do{
                 System.out.println("Elija la opcion que desee\n" +
