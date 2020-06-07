@@ -7,11 +7,11 @@ public class Conexion {
 
     public static Connection obtenerCon (){
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registro_personas", "root", "");
-            if(con != null){
-
+            if(con == null){
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registro_personas", "root", "");
+                return con;
             } else {
-                System.out.println("Conxeion Fallida");
+                return con;
             }
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
