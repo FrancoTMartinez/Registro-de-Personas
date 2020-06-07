@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 
-@RestController
-@RequestMapping("/registro_personas")
+//@RestController
+//@RequestMapping("/registro_personas")
 
 public class Consulta {
 
@@ -20,19 +20,21 @@ public class Consulta {
     private static String SELECT = "SELECT * FROM personas WHERE dni = ?";
     private static String UPDATE = "UPDATE personas SET dni=?, nombre=?, Edad=?, telefono=?, direccion=?, email=? WHERE dni=?";
     private static String DELETE = "DELETE FROM personas WHERE dni=?";
-    Usuario persona1 = new Usuario();
+    //Usuario persona1 = new Usuario();
 
-    @PostMapping
-    public Connection guardar(){
+    // @PostMapping (@RequestBody Usuario usuario)
+    public Connection post(Usuario usuario){
+        usuario = new Usuario();
         // Guardar Datos
         try{
             //Establecer Main.Java.conexion
             con = Conexion.obtenerCon();
-            ps = con.prepareStatement(INSERT);
+                        ps = con.prepareStatement(INSERT);
 
             System.out.println("Ingrese el DNI: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.dni = entradaTeclado;
+            //persona1.dni = entradaTeclado;
+            usuario.setDni(entradaTeclado);
             ps.setString(1, persona1.getDni());
             System.out.println("El Dni ingresado es: " + entradaTeclado + " \n" + "Ingrese Nombre y Apellido: ");
             entradaTeclado = entradaEscaner.nextLine ();
@@ -57,6 +59,7 @@ public class Consulta {
             System.out.println("El Email ingresado es: " + entradaTeclado + " ");
             int res = ps.executeUpdate();
 
+
             if(res > 0){
                 System.out.println("Datos guardados con exito!\n");
                 System.out.println("--------------------------------------------------------------------");
@@ -70,13 +73,15 @@ public class Consulta {
         }
         return con;
     }
-    @GetMapping
-    public  Connection buscar(@RequestBody Usuario dni,
-                              @RequestBody Usuario nombre,
-                              @RequestBody Usuario edad,
-                              @RequestBody Usuario telefono,
-                              @RequestBody Usuario direccion,
-                              @RequestBody Usuario email) {
+
+    /*@GetMapping("/registro_personas")
+    public List Usuario usuarios search(){
+
+    }*/
+
+    // @GetMapping("/registro_personas/{dni}")
+    //@RequestParam String dni
+    public  Connection lookup () {
         //Buscar Personas
         try {
             //Establecer Main.Java.conexion
@@ -105,7 +110,12 @@ public class Consulta {
         }
         return con;
     }
-    public Connection modificar(){
+
+
+    // @PutMapping("/registro_personas/{dni}")
+    //@RequestParam String dni,
+    //@RequestBody Persona persona
+    public Connection update(){
         //Modificar Personas
         try {
             //Establecer Main.Java.conexion
@@ -157,7 +167,10 @@ public class Consulta {
         }
         return con;
     }
-    public Connection borrar(){
+
+    // @DeleteMapping("/registro_personas/{dni}")
+    // @RequestParam (String dni)
+    public Connection delete(){
         //Borrar Personas
         try{
             //Establecer Main.Java.conexion
