@@ -30,21 +30,21 @@ public class Main {
                     case 1:
                         System.out.println("Eligio Agregar datos.\n");
                         Consulta agregar_personas = new Consulta();
-                        System.out.println(agregar_personas.guardar());
+                        System.out.println(agregar_personas.post());
                         break;
                     case 2:
                         System.out.println("Eligio Buscar Datos.\n");
                         Consulta buscar_personas = new Consulta();
-                        System.out.println(buscar_personas.buscar());
+                        System.out.println(buscar_personas.lookup());
                         break;
                     case 3:
                         System.out.println("Eligio Modificar Datos.\n");
                         Consulta modificar_personas = new Consulta();
-                        System.out.println(modificar_personas.modificar());
+                        System.out.println(modificar_personas.update());
                         break;
                     case 4: System.out.println("Eligio Borrar Datos");
                         Consulta borrar_personas = new Consulta();
-                        System.out.println(borrar_personas.borrar());
+                        System.out.println(borrar_personas.delete());
                 }
         } while (opciones != 0);
         return;

@@ -1,9 +1,7 @@
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Objects;
 
 
-public class Usuario {
+public class Persona {
 
     private String dni;
     private String nombre;
@@ -12,7 +10,7 @@ public class Usuario {
     private String direccion;
     private String email;
 
-    public Usuario() {
+    public Persona() {
         this.dni = dni;
         this.nombre = nombre;
         this.edad = edad;
@@ -69,8 +67,28 @@ public class Usuario {
         this.email = email;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Persona persona = (Persona) o;
+        return dni.equals(persona.dni) &&
+                nombre.equals(persona.nombre) &&
+                edad.equals(persona.edad) &&
+                telefono.equals(persona.telefono) &&
+                direccion.equals(persona.direccion) &&
+                email.equals(persona.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dni, nombre, edad, telefono, direccion, email);
+    }
+
+
+    @Override
+    public String toString() {
         return "Usuario{" +
                 "dni='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
@@ -81,20 +99,4 @@ public class Usuario {
                 '}';
     }
 
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-        Usuario usuario = (Usuario) object;
-        return java.util.Objects.equals(dni, usuario.dni) &&
-                java.util.Objects.equals(nombre, usuario.nombre) &&
-                java.util.Objects.equals(edad, usuario.edad) &&
-                java.util.Objects.equals(telefono, usuario.telefono) &&
-                java.util.Objects.equals(direccion, usuario.direccion) &&
-                java.util.Objects.equals(email, usuario.email);
-    }
-
-    public int hashCode() {
-        return java.util.Objects.hash(super.hashCode(), dni, nombre, edad, telefono, direccion, email);
-    }
 }

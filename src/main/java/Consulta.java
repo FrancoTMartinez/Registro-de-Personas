@@ -20,11 +20,10 @@ public class Consulta {
     private static String SELECT = "SELECT * FROM personas WHERE dni = ?";
     private static String UPDATE = "UPDATE personas SET dni=?, nombre=?, Edad=?, telefono=?, direccion=?, email=? WHERE dni=?";
     private static String DELETE = "DELETE FROM personas WHERE dni=?";
-    //Usuario persona1 = new Usuario();
 
+    Persona persona1 = new Persona();
     // @PostMapping (@RequestBody Usuario usuario)
-    public Connection post(Usuario usuario){
-        usuario = new Usuario();
+    public Connection post(Persona persona1){
         // Guardar Datos
         try{
             //Establecer Main.Java.conexion
@@ -33,28 +32,27 @@ public class Consulta {
 
             System.out.println("Ingrese el DNI: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            //persona1.dni = entradaTeclado;
-            usuario.setDni(entradaTeclado);
+            persona1.setDni(entradaTeclado);
             ps.setString(1, persona1.getDni());
             System.out.println("El Dni ingresado es: " + entradaTeclado + " \n" + "Ingrese Nombre y Apellido: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.nombre = entradaTeclado;
+            persona1.setNombre(entradaTeclado);
             ps.setString(2, persona1.getNombre());
             System.out.println("El Nombre ingresado es: " + entradaTeclado + " \n" + "Ingrese Edad: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.edad = entradaTeclado;
+            persona1.setEdad(entradaTeclado);
             ps.setString(3,persona1.getEdad());
             System.out.println("La Edad ingresada es: " + entradaTeclado + " \n" + "Ingrese Telefono");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.telefono = entradaTeclado;
+            persona1.setTelefono(entradaTeclado);
             ps.setString(4,persona1.getTelefono());
             System.out.println("El Telefono ingresado es: " + entradaTeclado + " \n" + "Ingrese Direccion");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.direccion = entradaTeclado;
+            persona1.setDireccion(entradaTeclado);
             ps.setString(5, persona1.getDireccion());
             System.out.println("La direccion ingresada es: " + entradaTeclado + " \n" + "Ingrese Email");
             entradaTeclado = entradaEscaner.nextLine();
-            persona1.email = entradaTeclado;
+            persona1.setEmail(entradaTeclado);
             ps.setString(6, persona1.getEmail());
             System.out.println("El Email ingresado es: " + entradaTeclado + " ");
             int res = ps.executeUpdate();
@@ -75,13 +73,11 @@ public class Consulta {
     }
 
     /*@GetMapping("/registro_personas")
-    public List Usuario usuarios search(){
-
+    public List Persona persona1 search(){
     }*/
-
     // @GetMapping("/registro_personas/{dni}")
     //@RequestParam String dni
-    public  Connection lookup () {
+    public  Connection lookup (Persona persona1) {
         //Buscar Personas
         try {
             //Establecer Main.Java.conexion
@@ -89,7 +85,7 @@ public class Consulta {
             ps = con.prepareStatement(SELECT);
             System.out.println("Ingrese el DNI de la persona que desea buscar.");
             entradaTeclado = entradaEscaner.nextLine();
-            persona1.dni = entradaTeclado;
+            persona1.setDni(entradaTeclado);
             ps.setString(1, persona1.getDni());
             rs = ps.executeQuery();
 
@@ -115,7 +111,7 @@ public class Consulta {
     // @PutMapping("/registro_personas/{dni}")
     //@RequestParam String dni,
     //@RequestBody Persona persona
-    public Connection update(){
+    public Connection update(Persona persona1){
         //Modificar Personas
         try {
             //Establecer Main.Java.conexion
@@ -124,32 +120,32 @@ public class Consulta {
 
             System.out.println("Ingrese el DNI: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.dni = entradaTeclado;
+            persona1.setDni(entradaTeclado);
             ps.setString(1,persona1.getDni());
             System.out.println("El Dni ingresado es: " + entradaTeclado + " \n" + "Ingrese Nombre y Apellido: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.nombre = entradaTeclado;
+            persona1.setNombre(entradaTeclado);
             ps.setString(2, persona1.getNombre());
             System.out.println("El Nombre ingresado es: " + entradaTeclado + " \n" + "Ingrese Edad: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.edad = entradaTeclado;
+            persona1.setEdad(entradaTeclado);
             ps.setString(3,persona1.getEdad());
             System.out.println("La Edad ingresada es: " + entradaTeclado + " \n" + "Ingrese Telefono");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.telefono = entradaTeclado;
+            persona1.setTelefono(entradaTeclado);
             ps.setString(4,persona1.getTelefono());
             System.out.println("El Telefono ingresado es: " + entradaTeclado + " \n" + "Ingrese Direccion");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.direccion = entradaTeclado;
+            persona1.setDireccion(entradaTeclado);
             ps.setString(5,persona1.getDireccion());
             System.out.println("La direccion ingresada es: " + entradaTeclado + " \n" + "Ingrese Email");
             entradaTeclado = entradaEscaner.nextLine();
-            persona1.email = entradaTeclado;
+            persona1.setEmail(entradaTeclado);
             ps.setString(6, persona1.getEmail());
             System.out.println("El Email ingresado es: " + entradaTeclado + " ");
             System.out.println("Ingrese el DNI nuevamente: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.dni = entradaTeclado;
+            persona1.setDni(entradaTeclado);
             ps.setString(7,persona1.getDni());
 
             int res = ps.executeUpdate();
@@ -170,7 +166,7 @@ public class Consulta {
 
     // @DeleteMapping("/registro_personas/{dni}")
     // @RequestParam (String dni)
-    public Connection delete(){
+    public Connection delete(Persona persona1){
         //Borrar Personas
         try{
             //Establecer Main.Java.conexion
@@ -179,7 +175,7 @@ public class Consulta {
 
             System.out.println("Ingrese el DNI de la persona que desea borrar su informacion: ");
             entradaTeclado = entradaEscaner.nextLine ();
-            persona1.dni = entradaTeclado;
+            persona1.setDni(entradaTeclado);
             ps.setString(1,persona1.getDni());
 
             int res = ps.executeUpdate();
