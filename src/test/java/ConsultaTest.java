@@ -1,6 +1,7 @@
 import com.mysql.cj.protocol.Resultset;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.internal.runners.JUnit4ClassRunner;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -10,11 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 
 //@RunWith (investigar si es necesario)
-//@RunWith(JUnit4ClassRunner.class)
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(JUnit4ClassRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class ConsultaTest{
     @Mock
     private Conexion conexion;
@@ -29,15 +31,14 @@ public class ConsultaTest{
     }
 
     @Test
-    public void testGuardar() {
+    public void testPost() {
         //hacer un metodo que construya una persona
-        buildPersona();
-        Connection con = consulta.post(buildPersona());
+        guardarPersona();
+
         // Connection con = consulta.lookup(buildUsuario().getDni());
         // buscar dentro de Connection un metodo que traiga lo que se guardo
         // hacer un select a la base
         traerPersona();
-
 
         assertEquals(traerPersona().getDni(), buildPersona().getDni());
         assertEquals(traerPersona().getNombre(), buildPersona().getNombre());
@@ -64,21 +65,25 @@ public class ConsultaTest{
     }
 
     @Test
-    public void modificar() {
+    public void updateTest() {
+
     }
 
     @Test
-    public void borrar() {
+    public void deleteTest() {
+        guardarPersona();
+        traerPersona();
+        assertNull(buildPersona().getDni(), traerPersona().getDni());
     }
 
     private Persona buildPersona(){
         Persona persona1 = new Persona();
-        persona1.setDni("123");
+        persona1.setDni("42416954");
         persona1.setNombre("Franco Tobias Martinez");
         persona1.setEdad("20");
         persona1.setTelefono("1530870938");
         persona1.setDireccion("Monasterio 848");
-        persona1.setEdad("francomartinez@gmail.com");
+        persona1.setEmail("francomartinez@gmail.com");
         return persona1;
     }
 
@@ -105,27 +110,29 @@ public class ConsultaTest{
     }
 
     private Persona traerPersona(){ //desde BD
-        Persona persona1 = new Persona();
+        Persona personaTest = new Persona();
+        PreparedStatement ps;
+        ResultSet rs = null;
         try {
-                PreparedStatement ps;
-                ResultSet rs;
-                String SELECT = "SELECT * FROM personas WHERE dni = ?";
-                //Establecer Main.Java.conexion
+
                 Connection con = Conexion.obtenerCon();
+                String SELECT = "SELECT * FROM personas WHERE dni = ?";
+
                 ps = con.prepareStatement(SELECT);
                 ps.setString(1, buildPersona().getDni());
                 rs = ps.executeQuery();
-
-                rs.getString("Dni");
-                rs.getString("Nombre");
-                rs.getInt("Edad");
-                rs.getString("Telefono");
-                rs.getString("Direccion");
-                rs.getString("Email");
+            if (rs.next()) {
+                personaTest.setDni(rs.getString("Dni"));
+                personaTest.setNombre(rs.getString("Nombre"));
+                personaTest.setEdad(rs.getString("Edad"));
+                personaTest.setTelefono(rs.getString("Telefono"));
+                personaTest.setDireccion(rs.getString("Direccion"));
+                personaTest.setEmail(rs.getString("Email"));
+            }
 
             } catch (Exception e) {
                 System.out.println("Error:" + e.getMessage());
             }
-            return persona1;
+            return personaTest;
         }
 }

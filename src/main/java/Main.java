@@ -8,6 +8,7 @@ public class Main {
         System.out.println(Conexion.obtenerCon());
 
         Scanner entradaEscaner = new Scanner (System.in);
+        Persona persona2 = new Persona();
         int opciones;
         if (Conexion.obtenerCon() != null){
             do{
@@ -30,21 +31,21 @@ public class Main {
                     case 1:
                         System.out.println("Eligio Agregar datos.\n");
                         Consulta agregar_personas = new Consulta();
-                        System.out.println(agregar_personas.post());
+                        System.out.println(agregar_personas.post(persona2));
                         break;
                     case 2:
                         System.out.println("Eligio Buscar Datos.\n");
                         Consulta buscar_personas = new Consulta();
-                        System.out.println(buscar_personas.lookup());
+                        System.out.println(buscar_personas.lookup(persona2));
                         break;
                     case 3:
                         System.out.println("Eligio Modificar Datos.\n");
                         Consulta modificar_personas = new Consulta();
-                        System.out.println(modificar_personas.update());
+                        System.out.println(modificar_personas.update(persona2));
                         break;
                     case 4: System.out.println("Eligio Borrar Datos");
                         Consulta borrar_personas = new Consulta();
-                        System.out.println(borrar_personas.delete());
+                        System.out.println(borrar_personas.delete(persona2));
                 }
         } while (opciones != 0);
         return;
